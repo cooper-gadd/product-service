@@ -13,13 +13,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseHttpsRedirection();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/Services/Products", () => products.Select(p => p.Name).ToList());
+
+app.MapGet("/Services/Products/Cheapest", () =>
+    products.MinBy(p => p.Price));
+
+app.MapGet("/Services/Products/Costliest", () =>
+    products.MaxBy(p => p.Price));
+
+app.MapGet("/Services/Products/{product}", (string product) =>
+    products.FirstOrDefault(p => p.Name.Equals(product, StringComparison.OrdinalIgnoreCase))?.Price);
 
 app.Run();
