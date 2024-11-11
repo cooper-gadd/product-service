@@ -130,7 +130,7 @@ dotnet watch
 
 ### Testing the Application
 
-The application can be tested using Swagger UI at https://localhost:5009/swagger
+The application can be tested using Swagger UI at http://localhost:5009/swagger/index.html
 
 ## Endpoints
 
